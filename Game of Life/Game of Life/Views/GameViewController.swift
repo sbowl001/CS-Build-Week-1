@@ -23,6 +23,7 @@ class GameViewController: UIViewController {
     var startStop: Bool = false
     var timer: Timer?
     
+    @IBOutlet weak var generationLabel: UILabel!
     
     let pixelSize = 15
     var boardWidth: Int {
@@ -41,6 +42,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.darkPurpleColor
+        generationLabel.text = String(generationCount)
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -78,6 +81,7 @@ class GameViewController: UIViewController {
     
     @IBAction func stopButtonToggled(_ sender: Any) {
         startStop = false
+        game = Game(width: boardWidth, height: boardHeight)
         collectionView.reloadData()
         generationCount = 0
     }
