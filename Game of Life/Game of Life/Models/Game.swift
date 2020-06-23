@@ -50,8 +50,8 @@ class Game {
        let numberOfAliveNeighbours = aliveNeighbourCountAt(x: x, y: y)
        let position = x + y*width
        
-       let wasPrevioslyAlive = currentState[position].isAlive
-       if wasPrevioslyAlive {
+       let wasPreviouslyAlive = currentState[position].isAlive
+       if wasPreviouslyAlive {
            return numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3
        } else {
            return numberOfAliveNeighbours == 3

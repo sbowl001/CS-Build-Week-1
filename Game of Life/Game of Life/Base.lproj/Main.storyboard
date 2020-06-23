@@ -15,19 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="id4-g3-J1K">
-                                <rect key="frame" x="30" y="822" width="354" height="40"/>
-                                <color key="backgroundColor" red="0.64978492259999998" green="0.88463026290000002" blue="0.85729372500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="AWu-hp-gZS"/>
-                                </constraints>
-                                <state key="normal" title="Reset"/>
-                                <connections>
-                                    <action selector="resetAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="02E-jD-f3J"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gku-fM-oe7">
-                                <rect key="frame" x="20" y="64" width="374" height="728"/>
+                                <rect key="frame" x="20" y="64" width="374" height="725"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZhJ-iQ-Hga">
                                     <size key="itemSize" width="50" height="50"/>
@@ -68,15 +57,49 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Em9-Og-vVQ"/>
                                 </connections>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xl8-o7-JbB">
+                                <rect key="frame" x="30" y="809" width="354" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="oB7-Qe-YuS"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="r5j-jh-Yd9"/>
+                                    <barButtonItem style="plain" id="eMb-nt-HnM">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zu3-2Z-gWJ">
+                                            <rect key="frame" x="136" y="11" width="25" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="playpause" catalog="system"/>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="95k-yj-BvA">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="M39-uu-OwR">
+                                            <rect key="frame" x="161" y="11" width="18" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="stop" catalog="system"/>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="dJl-D4-q3R">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="chB-3g-FcF">
+                                            <rect key="frame" x="179" y="7" width="39" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Reset"/>
+                                            <connections>
+                                                <action selector="resetAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dwx-R6-kYJ"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RIE-B9-tL1"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Xl8-o7-JbB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="2gV-qc-0UK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xl8-o7-JbB" secondAttribute="trailing" constant="30" id="3z3-zS-iTU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Xl8-o7-JbB" secondAttribute="bottom" constant="9" id="Hs7-kC-waZ"/>
                             <constraint firstItem="gku-fM-oe7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Mc8-iA-vfN"/>
-                            <constraint firstItem="id4-g3-J1K" firstAttribute="top" secondItem="gku-fM-oe7" secondAttribute="bottom" constant="30" id="N2r-Gm-dlh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gku-fM-oe7" secondAttribute="trailing" constant="20" id="Nee-OG-T2j"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="id4-g3-J1K" secondAttribute="bottom" id="P2F-eK-b8a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="id4-g3-J1K" secondAttribute="trailing" constant="30" id="Tz1-nF-Kmv"/>
-                            <constraint firstItem="id4-g3-J1K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="gR0-Mb-GaG"/>
+                            <constraint firstItem="Xl8-o7-JbB" firstAttribute="firstBaseline" secondItem="gku-fM-oe7" secondAttribute="baseline" constant="20" id="Zpn-9i-rAQ"/>
                             <constraint firstItem="gku-fM-oe7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ssq-xv-kAY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -87,7 +110,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="128.57142857142856"/>
+            <point key="canvasLocation" x="65.217391304347828" y="89.0625"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="playpause" catalog="system" width="128" height="83"/>
+        <image name="stop" catalog="system" width="128" height="113"/>
+    </resources>
 </document>

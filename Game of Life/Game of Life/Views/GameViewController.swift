@@ -12,12 +12,17 @@ import UIKit
 
 class GameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     var dataSource: [Cell]  = [] {
         didSet {
             self.collectionView.reloadData()
         }
     }
-
+    var startStop: Bool = false
+    var timer: Timer?
+    
+    
     let pixelSize = 15
     var boardWidth: Int {
         return Int(floor(collectionView.frame.size.width/CGFloat(pixelSize)))
@@ -40,9 +45,10 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         game = Game(width: boardWidth, height: boardHeight)
-        game.addStateObserver { [weak self] state in
-            self?.display(state)
-        }
+//        game.addStateObserver { [weak self] state in
+//             self?.display(state)
+//        }
+        //this adds the moving pieces
     }
     
     func display(_ state: GameState) {
@@ -51,6 +57,17 @@ class GameViewController: UIViewController {
     
     @IBAction func resetAction(_ sender: UIButton) {
         game.reset()
+    }
+    
+    
+    func autoRun(run: Bool){
+        if startStop {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.display(state)
+                self.collectionView.reloadData()
+                self.autoRun(run: run)
+            }
+        }
     }
 }
 
