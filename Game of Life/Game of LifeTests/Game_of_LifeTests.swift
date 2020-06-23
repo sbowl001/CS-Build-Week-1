@@ -7,9 +7,10 @@
 //
 
 import XCTest
+@testable import Game_of_Life
 
 class Game_of_LifeTests: XCTestCase {
-
+    var game = Game(width: 3, height: 3)
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
