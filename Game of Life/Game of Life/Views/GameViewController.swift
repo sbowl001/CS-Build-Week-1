@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    var generationCount: Int = 0
     var startStop: Bool = false
     var timer: Timer?
     
@@ -45,12 +46,21 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         game = Game(width: boardWidth, height: boardHeight)
-//        game.addStateObserver { [weak self] state in
-//             self?.display(state)
-//        }
+        game.addStateObserver { [weak self] state in
+             self?.display(state)
+        }
         //this adds the moving pieces
     }
+   
     
+    //NOTE: Observer in Game class uses generate initial state and iterate
+//    func addStateObserver(_ observer: GameStateObserver) {
+//    observer?(generateInitialState())
+//    Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
+//        observer?(self.iterate())
+//    }
+//}
+//
     func display(_ state: GameState) {
         self.dataSource = state.cells
     }
@@ -59,12 +69,25 @@ class GameViewController: UIViewController {
         game.reset()
     }
     
+    @IBAction func playPauseButtonToggled(_ sender: Any) {
+        startStop.toggle()
+        autoRun(run: startStop)
+    }
     
+    
+    
+    @IBAction func stopButtonToggled(_ sender: Any) {
+        startStop = false
+        collectionView.reloadData()
+        generationCount = 0
+    }
     func autoRun(run: Bool){
         if startStop {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.display(state)
+                self.game.generateInitialState()
+//                Maybe?
                 self.collectionView.reloadData()
+                self.generationCount += 1
                 self.autoRun(run: run)
             }
         }

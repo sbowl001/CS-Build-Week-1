@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gku-fM-oe7">
-                                <rect key="frame" x="20" y="64" width="374" height="725"/>
+                                <rect key="frame" x="20" y="94" width="374" height="695"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZhJ-iQ-Hga">
                                     <size key="itemSize" width="50" height="50"/>
@@ -69,6 +69,9 @@
                                             <rect key="frame" x="136" y="11" width="25" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="playpause" catalog="system"/>
+                                            <connections>
+                                                <action selector="playPauseButtonToggled:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Dy-Sp-15u"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="95k-yj-BvA">
@@ -76,6 +79,9 @@
                                             <rect key="frame" x="161" y="11" width="18" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="stop" catalog="system"/>
+                                            <connections>
+                                                <action selector="stopButtonToggled:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iOv-pq-obx"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="dJl-D4-q3R">
@@ -91,16 +97,40 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="RIE-B9-tL1"/>
                                 </items>
                             </toolbar>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEU-Hn-WZS">
+                                <rect key="frame" x="20" y="65" width="374" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Genration Count: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSH-fR-oKT">
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDf-JF-Yo7">
+                                        <rect key="frame" x="135" y="0.0" width="239" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="1xb-yY-Oj7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Xl8-o7-JbB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="2gV-qc-0UK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xl8-o7-JbB" secondAttribute="trailing" constant="30" id="3z3-zS-iTU"/>
+                            <constraint firstItem="sEU-Hn-WZS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7cZ-QQ-2vl"/>
+                            <constraint firstItem="gku-fM-oe7" firstAttribute="top" secondItem="sEU-Hn-WZS" secondAttribute="bottom" constant="8.5" id="HCr-J3-xQn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Xl8-o7-JbB" secondAttribute="bottom" constant="9" id="Hs7-kC-waZ"/>
                             <constraint firstItem="gku-fM-oe7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Mc8-iA-vfN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gku-fM-oe7" secondAttribute="trailing" constant="20" id="Nee-OG-T2j"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sEU-Hn-WZS" secondAttribute="trailing" constant="20" id="PXa-Py-MAn"/>
                             <constraint firstItem="Xl8-o7-JbB" firstAttribute="firstBaseline" secondItem="gku-fM-oe7" secondAttribute="baseline" constant="20" id="Zpn-9i-rAQ"/>
-                            <constraint firstItem="gku-fM-oe7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ssq-xv-kAY"/>
+                            <constraint firstItem="gku-fM-oe7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="ssq-xv-kAY"/>
+                            <constraint firstItem="sEU-Hn-WZS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="21" id="ua9-sh-H4x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
