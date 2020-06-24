@@ -46,7 +46,7 @@ class GameViewController: UIViewController, GameDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.darkPurpleColor
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         //        game.generationCount = 0
         //        guard let game = game else {return NSLog("nil generation count")}
         //        generationLabel.text = String(game.generationCount)
@@ -71,7 +71,7 @@ class GameViewController: UIViewController, GameDelegate {
         guard let game =  notification.object as? Game else {return NSLog("nil game")}
         
         self.generationLabel.text = String(game.generationCount)
-      
+        
     }
     
     
@@ -89,7 +89,14 @@ class GameViewController: UIViewController, GameDelegate {
     
     @IBAction func resetAction(_ sender: UIButton) {
         guard let game = game else {return}
+        NotificationCenter.default.removeObserver(self)
+        
+        self.generationLabel.text = "0"
+        
         game.reset()
+        
+        
+        
     }
     
     @IBAction func playPauseButtonToggled(_ sender: Any) {

@@ -37,13 +37,15 @@ class Game {
        Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
            observer?(self.iterate())
         self.generationCount += 1
-              NotificationCenter.default.post(name: .updateGenerateCount, object: self)
+        NotificationCenter.default.post(name: .updateGenerateCount, object: self)
        }
+       
    }
    
    func reset() {
        
        self.generateInitialState()
+       NotificationCenter.default.post(name: .updateGenerateCount, object: self)
    }
    
     
