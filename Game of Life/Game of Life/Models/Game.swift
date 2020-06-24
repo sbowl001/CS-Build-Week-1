@@ -15,6 +15,7 @@ class Game {
    let width: Int
    let height: Int
    var currentState: GameState
+   var isPaused: Bool = false
    
    init(width: Int, height: Int) {
        self.width = width
@@ -34,9 +35,16 @@ class Game {
        self.generateInitialState()
    }
    
+    
+  
    func iterate() -> GameState  {
+    
+   
        var nextState = currentState
        for i in 0...width - 1 {
+            if isPaused == true {
+               break
+           }
            for j in 0...height - 1 {
                let positionInTheArray = j*width + i
                nextState[positionInTheArray] = Cell(isAlive: state(x: i, y: j))

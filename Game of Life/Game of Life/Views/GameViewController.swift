@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
     }
    
     
-    //NOTE: Observer in Game class uses generate initial state and iterate
+//    //NOTE: Observer in Game class uses generate initial state and iterate
 //    func addStateObserver(_ observer: GameStateObserver) {
 //    observer?(generateInitialState())
 //    Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
@@ -73,17 +73,21 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func playPauseButtonToggled(_ sender: Any) {
-        startStop.toggle()
-        autoRun(run: startStop)
+//        startStop.toggle()
+//        autoRun(run: startStop)
+        game.isPaused.toggle()
     }
     
     
     
     @IBAction func stopButtonToggled(_ sender: Any) {
-        startStop = false
-        game = Game(width: boardWidth, height: boardHeight)
-        collectionView.reloadData()
-        generationCount = 0
+//        startStop = false
+//        game = Game(width: boardWidth, height: boardHeight)
+//        collectionView.reloadData()
+//        generationCount = 0
+        game.isPaused = true
+        game.generateInitialState() 
+        
     }
     func autoRun(run: Bool){
         if startStop {
