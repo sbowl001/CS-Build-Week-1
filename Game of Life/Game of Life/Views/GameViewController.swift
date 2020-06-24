@@ -10,7 +10,11 @@
 import UIKit
 
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GameDelegate {
+    func countGeneration() {
+        <#code#>
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     
@@ -19,7 +23,7 @@ class GameViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    var generationCount: Int = 0
+    
     var startStop: Bool = false
     var timer: Timer?
     
@@ -33,7 +37,7 @@ class GameViewController: UIViewController {
         return Int(floor(collectionView.frame.size.height/CGFloat(pixelSize)))
     }
 
-    var game: Game!
+    var game: Game?
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -42,13 +46,16 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.darkPurpleColor
-        generationLabel.text = String(generationCount)
+//        game.generationCount = 0
+        guard let game = game else {return NSLog("nil generation count")}
+        generationLabel.text = String(game.generationCount)
         
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         game = Game(width: boardWidth, height: boardHeight)
+        guard let game = game else {return}
         game.addStateObserver { [weak self] state in
              self?.display(state)
         }
@@ -69,12 +76,14 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func resetAction(_ sender: UIButton) {
+        guard let game = game else {return}
         game.reset()
     }
     
     @IBAction func playPauseButtonToggled(_ sender: Any) {
 //        startStop.toggle()
 //        autoRun(run: startStop)
+        guard let game = game else {return}
         game.isPaused.toggle()
     }
     
@@ -85,17 +94,20 @@ class GameViewController: UIViewController {
 //        game = Game(width: boardWidth, height: boardHeight)
 //        collectionView.reloadData()
 //        generationCount = 0
+        guard let game = game else {return}
         game.isPaused = true
-        game.generateInitialState() 
+        game.generateInitialState()
         
     }
     func autoRun(run: Bool){
+        
         if startStop {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.game.generateInitialState()
+                guard let game = self.game else {return}
+                game.generateInitialState()
 //                Maybe?
                 self.collectionView.reloadData()
-                self.generationCount += 1
+//                self.generationCount += 1
                 self.autoRun(run: run)
             }
         }

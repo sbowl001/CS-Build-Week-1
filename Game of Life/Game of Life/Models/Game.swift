@@ -10,12 +10,20 @@ import Foundation
 
 typealias GameStateObserver = ((GameState) -> Void)?
 
+protocol GameDelegate: class {
+    func countGeneration(){
+//        generationCount += 1
+    }
+}
 
 class Game {
    let width: Int
    let height: Int
    var currentState: GameState
    var isPaused: Bool = false
+   var generationCount: Int = 0
+    
+   weak var delegate: GameDelegate?
    
    init(width: Int, height: Int) {
        self.width = width
@@ -51,6 +59,8 @@ class Game {
            }
        }
        self.currentState = nextState
+       delegate?.countGeneration()
+     
        return nextState
    }
    
