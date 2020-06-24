@@ -19,6 +19,7 @@
 		A3630E16249C6DAA0086BF5A /* SquareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E15249C6DAA0086BF5A /* SquareCollectionViewCell.swift */; };
 		A3630E19249C6DDC0086BF5A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E18249C6DDC0086BF5A /* GameViewController.swift */; };
 		A3630E1D24A193BC0086BF5A /* ColorCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E1C24A193BC0086BF5A /* ColorCustom.swift */; };
+		A3630E1F24A3B1B20086BF5A /* NotificationCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E1E24A3B1B20086BF5A /* NotificationCustom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		A3630E15249C6DAA0086BF5A /* SquareCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3630E18249C6DDC0086BF5A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A3630E1C24A193BC0086BF5A /* ColorCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCustom.swift; sourceTree = "<group>"; };
+		A3630E1E24A3B1B20086BF5A /* NotificationCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCustom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +91,7 @@
 		A3630DE9249B09590086BF5A /* Game of Life */ = {
 			isa = PBXGroup;
 			children = (
-				A3630E1B24A193A00086BF5A /* Extension Color */,
+				A3630E1B24A193A00086BF5A /* Extensions */,
 				A3630E1A24A193890086BF5A /* Models */,
 				A3630E17249C6DC00086BF5A /* Views */,
 				A3630DEA249B09590086BF5A /* AppDelegate.swift */,
@@ -130,12 +132,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		A3630E1B24A193A00086BF5A /* Extension Color */ = {
+		A3630E1B24A193A00086BF5A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				A3630E1C24A193BC0086BF5A /* ColorCustom.swift */,
+				A3630E1E24A3B1B20086BF5A /* NotificationCustom.swift */,
 			);
-			path = "Extension Color";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +249,7 @@
 				A3630E16249C6DAA0086BF5A /* SquareCollectionViewCell.swift in Sources */,
 				A3630DEB249B09590086BF5A /* AppDelegate.swift in Sources */,
 				A3630E1D24A193BC0086BF5A /* ColorCustom.swift in Sources */,
+				A3630E1F24A3B1B20086BF5A /* NotificationCustom.swift in Sources */,
 				A3630DED249B09590086BF5A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

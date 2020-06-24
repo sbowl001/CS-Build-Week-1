@@ -11,9 +11,9 @@ import Foundation
 typealias GameStateObserver = ((GameState) -> Void)?
 
 protocol GameDelegate: class {
-    func countGeneration(){
+//    func countGeneration( ) {
 //        generationCount += 1
-    }
+   
 }
 
 class Game {
@@ -36,10 +36,13 @@ class Game {
        observer?(generateInitialState())
        Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
            observer?(self.iterate())
+        self.generationCount += 1
+              NotificationCenter.default.post(name: .updateGenerateCount, object: self)
        }
    }
    
    func reset() {
+       
        self.generateInitialState()
    }
    
@@ -59,9 +62,13 @@ class Game {
            }
        }
        self.currentState = nextState
-       delegate?.countGeneration()
-     
+      
+      
+       
+//       delegate?.countGeneration()
+        
        return nextState
+
    }
    
    func state(x: Int, y: Int) -> Bool {
