@@ -57,9 +57,10 @@ class GameViewController: UIViewController, GameDelegate {
         super.viewDidAppear(animated)
         game = Game(width: boardWidth, height: boardHeight)
         guard let game = game else {return}
-        game.addStateObserver { [weak self] state in
-            self?.display(state)
+        game.generateCellLoops { [weak self] state in
+             self?.display(state)
         }
+     
         NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         //this adds the moving pieces
     }
@@ -76,7 +77,7 @@ class GameViewController: UIViewController, GameDelegate {
     
     
     //    //NOTE: Observer in Game class uses generate initial state and iterate
-    //    func addStateObserver(_ observer: GameStateObserver) {
+    //    func generateCellLoops(_ observer: GameStateObserver) {
     //    observer?(generateInitialState())
     //    Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
     //        observer?(self.iterate())
@@ -93,9 +94,13 @@ class GameViewController: UIViewController, GameDelegate {
         
         self.generationLabel.text = "0"
         
-        game.reset()
-        
-        
+//        game.reset()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
+        game.generateCellLoops { [weak self] state in
+                    self?.display(state)
+                
+               }
+  
         
     }
     
@@ -103,7 +108,15 @@ class GameViewController: UIViewController, GameDelegate {
         //        startStop.toggle()
         //        autoRun(run: startStop)
         guard let game = game else {return}
+        
         game.isPaused.toggle()
+//        if game.isPaused {
+//            game.timer?.invalidate()
+//        } else {
+//            game.generateCellLoops { [weak self] state in
+//                self?.display(state)
+//            }
+//        }
     }
     
     
@@ -118,19 +131,30 @@ class GameViewController: UIViewController, GameDelegate {
         game.generateInitialState()
         
     }
-    func autoRun(run: Bool){
+    
+    
+    @IBAction func clearButtonPressed(_ sender: Any) {
         
-        if startStop {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                guard let game = self.game else {return}
-                game.generateInitialState()
-                //                Maybe?
-                self.collectionView.reloadData()
-                //                self.generationCount += 1
-                self.autoRun(run: run)
-            }
-        }
+        NotificationCenter.default.removeObserver(self)
+        guard let game = game else {return}
+        
+        game.generateDeadCells()
     }
+    
+    
+//    func autoRun(run: Bool){
+//        
+//        if startStop {
+//            DispatchQueue.main.asyncAfter(deadline: .now()) {
+//                guard let game = self.game else {return}
+//                game.generateInitialState()
+//                //                Maybe?
+//                self.collectionView.reloadData()
+//                //                self.generationCount += 1
+//                self.autoRun(run: run)
+//            }
+//        }
+//    }
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

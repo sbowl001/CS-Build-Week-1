@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias GameStateObserver = ((GameState) -> Void)?
+//typealias GameStateObserver = ((GameState) -> Void)?
 
 protocol GameDelegate: class {
 //    func countGeneration( ) {
@@ -22,6 +22,7 @@ class Game {
    var currentState: GameState
    var isPaused: Bool = false
    var generationCount: Int = 0
+   var timer: Timer?
     
    weak var delegate: GameDelegate?
    
@@ -32,16 +33,31 @@ class Game {
        currentState = GameState(cells: cells)
    }
    
-   func addStateObserver(_ observer: GameStateObserver) {
-       observer?(generateInitialState())
-       Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
-           observer?(self.iterate())
-        self.generationCount += 1
-        NotificationCenter.default.post(name: .updateGenerateCount, object: self)
-       }
+   func generateCellLoops(_ generatedCells: @escaping ((GameState) -> Void)) {
+        generatedCells(generateInitialState())
+      
+        iterateCellCycles(generatedCells)
+        //need to modify this somehow? How to stop the timer or the iteration?
+        //where is the best spot for generation count?
+       
+       
        
    }
-   
+    
+    func iterateCellCycles(_ generatedCells: @escaping ((GameState) -> Void)){
+        if self.isPaused {
+            self.timer?.invalidate()
+ 
+        }
+        else{
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
+                generatedCells(self.iterate())
+                self.generationCount += 1
+                NotificationCenter.default.post(name: .updateGenerateCount, object: self)
+            }
+        }
+    }
+    
    func reset() {
        
        self.generateInitialState()
@@ -120,7 +136,18 @@ class Game {
        }
        return self.currentState
    }
-   
+    
+    @discardableResult func generateDeadCells() -> GameState {
+        let maxItems = width*height - 1
+        let initialStatePoints = Array(0...maxItems)
+ 
+        for point in initialStatePoints{
+                currentState[point] = Cell.makeDeadCell()
+            }
+            return self.currentState
+        }
+ 
+ 
    private func generateRandom(between range: ClosedRange<Int>, count: Int) -> [Int] {
        return Array(0...count).map { _ in
            Int.random(in: range)
