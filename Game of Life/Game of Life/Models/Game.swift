@@ -66,8 +66,9 @@ class Game {
    func reset() {
        
        self.generationCount = 0 
-       self.generateInitialState()
-       NotificationCenter.default.post(name: .updateGenerateCount, object: self)
+//       self.generateInitialState()
+//       NotificationCenter.default.post(name: .updateGenerateCount, object: self)
+ 
    }
    
     

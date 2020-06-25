@@ -90,19 +90,21 @@ class GameViewController: UIViewController, GameDelegate {
     }
     
     @IBAction func resetAction(_ sender: UIButton) {
-//        guard let game = game else {return}
-        NotificationCenter.default.removeObserver(self)
+        guard let game = game else {return}
+//        NotificationCenter.default.removeObserver(self)
         
-        self.generationLabel.text = "0"
+//        self.generationLabel.text = "0"
         
-//        game.reset()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
-//        game.generateCellLoops { [weak self] state in
-//                    self?.display(state)
-//
-//               }
+        game.reset()
+//        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
+        game.generateCellLoops { [weak self] state in
+                    self?.display(state)
+
+               }
 //        game.generateInitialState()
   
+        
+//MARK: After reset, game doesn't pause anymore
         
     }
     
@@ -140,10 +142,16 @@ class GameViewController: UIViewController, GameDelegate {
     
     @IBAction func clearButtonPressed(_ sender: Any) {
         
-        NotificationCenter.default.removeObserver(self)
-        guard let game = game else {return}
         
+        guard let game = game else {return}
+        game.reset()
+        NotificationCenter.default.removeObserver(self)
+        
+        self.generationLabel.text = "0"
         game.generateDeadCells()
+        
+        
+// MARK: After clear, generation count will not count again 
     }
     
     
