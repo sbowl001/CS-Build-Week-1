@@ -37,6 +37,7 @@ class Game {
         generatedCells(generateInitialState())
       
         iterateCellCycles(generatedCells)
+    
         //need to modify this somehow? How to stop the timer or the iteration?
         //where is the best spot for generation count?
        
@@ -45,21 +46,26 @@ class Game {
    }
     
     func iterateCellCycles(_ generatedCells: @escaping ((GameState) -> Void)){
-        if self.isPaused {
-            self.timer?.invalidate()
- 
-        }
-        else{
+//        if isPaused == true {
+//            guard let timer = timer else {return NSLog("no timer")}
+//            timer.invalidate()
+//
+//        }
+//        else{
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
                 generatedCells(self.iterate())
                 self.generationCount += 1
                 NotificationCenter.default.post(name: .updateGenerateCount, object: self)
-            }
+//            }
+           
+          
         }
+        
     }
     
    func reset() {
        
+       self.generationCount = 0 
        self.generateInitialState()
        NotificationCenter.default.post(name: .updateGenerateCount, object: self)
    }
@@ -67,26 +73,23 @@ class Game {
     
   
    func iterate() -> GameState  {
-    
-   
-       var nextState = currentState
-       for i in 0...width - 1 {
-            if isPaused == true {
-               break
-           }
-           for j in 0...height - 1 {
-               let positionInTheArray = j*width + i
-               nextState[positionInTheArray] = Cell(isAlive: state(x: i, y: j))
-           }
-       }
-       self.currentState = nextState
-      
-      
-       
-//       delegate?.countGeneration()
+    var nextState = currentState
+    for i in 0...width - 1 {
+//        if isPaused == true  {
+//            //                self.timer?.invalidate()
+//            break
+//        } else {
+            
+            for j in 0...height - 1 {
+                let positionInTheArray = j*width + i
+                nextState[positionInTheArray] = Cell(isAlive: state(x: i, y: j))
+            }
+//        }
         
+    }
+       self.currentState = nextState
+//       delegate?.countGeneration()
        return nextState
-
    }
    
    func state(x: Int, y: Int) -> Bool {

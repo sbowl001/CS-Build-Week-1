@@ -56,11 +56,12 @@ class GameViewController: UIViewController, GameDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         game = Game(width: boardWidth, height: boardHeight)
+        
         guard let game = game else {return}
         game.generateCellLoops { [weak self] state in
-             self?.display(state)
-        }
-     
+                          self?.display(state)
+                     }
+                  
         NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         //this adds the moving pieces
     }
@@ -89,34 +90,38 @@ class GameViewController: UIViewController, GameDelegate {
     }
     
     @IBAction func resetAction(_ sender: UIButton) {
-        guard let game = game else {return}
+//        guard let game = game else {return}
         NotificationCenter.default.removeObserver(self)
         
         self.generationLabel.text = "0"
         
 //        game.reset()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
-        game.generateCellLoops { [weak self] state in
-                    self?.display(state)
-                
-               }
+//        game.generateCellLoops { [weak self] state in
+//                    self?.display(state)
+//
+//               }
+//        game.generateInitialState()
   
         
     }
     
     @IBAction func playPauseButtonToggled(_ sender: Any) {
-        //        startStop.toggle()
-        //        autoRun(run: startStop)
         guard let game = game else {return}
+       
         
         game.isPaused.toggle()
-//        if game.isPaused {
-//            game.timer?.invalidate()
-//        } else {
-//            game.generateCellLoops { [weak self] state in
-//                self?.display(state)
-//            }
-//        }
+      
+//        guard let game = game else {return}
+        
+        
+        if game.isPaused {
+            game.timer?.invalidate()
+        } else {
+            game.iterateCellCycles { [weak self] state in
+                self?.display(state)
+            }
+        }
     }
     
     
