@@ -24,6 +24,7 @@ class GameViewController: UIViewController, GameDelegate {
         }
     }
     
+    @IBOutlet weak var gameView: UIView!
     var startStop: Bool = false
     var timer: Timer?
     
@@ -45,7 +46,11 @@ class GameViewController: UIViewController, GameDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.darkPurpleColor
+        self.view.backgroundColor = #colorLiteral(red: 0.6497849226, green: 0.8846302629, blue: 0.857293725, alpha: 1)
+        gameView.backgroundColor = UIColor.darkPurpleColor
+//        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 0.6497849226, green: 0.8846302629, blue: 0.857293725, alpha: 1)
+        
         //        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         //        game.generationCount = 0
         //        guard let game = game else {return NSLog("nil generation count")}
@@ -91,12 +96,13 @@ class GameViewController: UIViewController, GameDelegate {
     
     @IBAction func resetAction(_ sender: UIButton) {
         guard let game = game else {return}
-//        NotificationCenter.default.removeObserver(self)
+ 
         
 //        self.generationLabel.text = "0"
         
-        game.invalidateTimer()
+       
         game.reset()
+        game.invalidateTimer()
 //        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         game.generateCellLoops { [weak self] state in
                     self?.display(state)
