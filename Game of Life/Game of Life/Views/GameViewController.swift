@@ -95,13 +95,14 @@ class GameViewController: UIViewController, GameDelegate {
         
 //        self.generationLabel.text = "0"
         
+        game.invalidateTimer()
         game.reset()
 //        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
         game.generateCellLoops { [weak self] state in
                     self?.display(state)
 
                }
-//        game.generateInitialState()
+       
   
         
 //MARK: After reset, game doesn't pause anymore
@@ -118,7 +119,7 @@ class GameViewController: UIViewController, GameDelegate {
         
         
         if game.isPaused {
-            game.timer?.invalidate()
+            game.invalidateTimer()
         } else {
             game.iterateCellCycles { [weak self] state in
                 self?.display(state)
@@ -145,10 +146,10 @@ class GameViewController: UIViewController, GameDelegate {
         
         guard let game = game else {return}
         game.reset()
-        NotificationCenter.default.removeObserver(self)
-        
+      
+        self.display(game.currentState)
         self.generationLabel.text = "0"
-        game.generateDeadCells()
+       
         
         
 // MARK: After clear, generation count will not count again 

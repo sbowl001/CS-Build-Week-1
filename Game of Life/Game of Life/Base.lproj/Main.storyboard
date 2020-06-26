@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="al2-xG-CgV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -8,16 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Conway's game of Life-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Game_of_Life" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Conway's game of Life" id="BYZ-38-t0r" customClass="GameViewController" customModule="Game_of_Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEU-Hn-WZS">
-                                <rect key="frame" x="20" y="101" width="374" height="30"/>
+                                <rect key="frame" x="20" y="145" width="374" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Genration Count: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSH-fR-oKT">
                                         <rect key="frame" x="0.0" y="0.0" width="135" height="30"/>
@@ -40,7 +40,7 @@
                                 </constraints>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gku-fM-oe7">
-                                <rect key="frame" x="20" y="130" width="374" height="688"/>
+                                <rect key="frame" x="20" y="174" width="374" height="644"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZhJ-iQ-Hga">
                                     <size key="itemSize" width="50" height="50"/>
@@ -152,6 +152,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Conway's game of Life" id="QTm-0t-VlX">
+                        <barButtonItem key="rightBarButtonItem" image="questionmark.circle" catalog="system" id="tdO-02-YNQ">
+                            <connections>
+                                <segue destination="1pd-j4-EJK" kind="show" id="dbf-BA-EFV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="gku-fM-oe7" id="LaQ-W3-m7M"/>
                         <outlet property="generationLabel" destination="WDf-JF-Yo7" id="aO2-Pz-3EQ"/>
@@ -159,11 +166,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="975.36231884057975" y="89.0625"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qEG-rR-8zW">
+            <objects>
+                <viewController id="1pd-j4-EJK" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uqs-CT-HC0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="T1J-2c-8lg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Aue-OP-bOq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eM0-ek-ukq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1884" y="89"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xf5-OJ-gHD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="al2-xG-CgV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TaN-YX-i6K">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.64978492259999998" green="0.88463026290000002" blue="0.85729372500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" name="Blue Color"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZL4-Fj-98W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GTo-ao-BuH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="65.217391304347828" y="89.0625"/>
         </scene>
     </scenes>
     <resources>
         <image name="playpause" catalog="system" width="128" height="83"/>
+        <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <image name="stop" catalog="system" width="128" height="113"/>
         <namedColor name="Blue Color">
             <color red="0.44437522028830223" green="0.55137771479645137" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

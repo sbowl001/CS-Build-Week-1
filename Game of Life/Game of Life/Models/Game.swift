@@ -34,17 +34,14 @@ class Game {
    }
    
    func generateCellLoops(_ generatedCells: @escaping ((GameState) -> Void)) {
-        generatedCells(generateInitialState())
+     let initialGameState = generateInitialState()
+       generatedCells(initialGameState)   //executing the function
       
-        iterateCellCycles(generatedCells)
+        iterateCellCycles(generatedCells)  //just passing along the function so that someone else can execute the function
     
-        //need to modify this somehow? How to stop the timer or the iteration?
+   
         //where is the best spot for generation count?
-       
-       
-       
    }
-    
     func iterateCellCycles(_ generatedCells: @escaping ((GameState) -> Void)){
 //        if isPaused == true {
 //            guard let timer = timer else {return NSLog("no timer")}
@@ -66,12 +63,17 @@ class Game {
    func reset() {
        
        self.generationCount = 0 
-//       self.generateInitialState()
-//       NotificationCenter.default.post(name: .updateGenerateCount, object: self)
- 
+       generateDeadCells()
+        
+       invalidateTimer()
    }
    
-    
+    func invalidateTimer(){
+        timer?.invalidate()
+//        isPaused = true
+        timer = nil
+        
+    }
   
    func iterate() -> GameState  {
     var nextState = currentState
