@@ -30,6 +30,7 @@ class GameViewController: UIViewController, GameDelegate {
     
     @IBOutlet weak var generationLabel: UILabel!
     
+    @IBOutlet weak var populationLabel: UILabel!
     let pixelSize = 15
     var boardWidth: Int {
         return Int(floor(collectionView.frame.size.width/CGFloat(pixelSize)))
@@ -40,15 +41,15 @@ class GameViewController: UIViewController, GameDelegate {
     
     var game: Game?
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 0.6497849226, green: 0.8846302629, blue: 0.857293725, alpha: 1)
         gameView.backgroundColor = UIColor.darkPurpleColor
-//        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 0.6497849226, green: 0.8846302629, blue: 0.857293725, alpha: 1)
         
         //        NotificationCenter.default.addObserver(self, selector: #selector(refreshGeneration), name: .updateGenerateCount, object: nil)
@@ -78,7 +79,7 @@ class GameViewController: UIViewController, GameDelegate {
         guard let game =  notification.object as? Game else {return NSLog("nil game")}
         
         self.generationLabel.text = String(game.generationCount)
-        
+        self.populationLabel.text = String(game.population)
     }
     
     
@@ -142,7 +143,9 @@ class GameViewController: UIViewController, GameDelegate {
         //        generationCount = 0
         guard let game = game else {return}
         game.isPaused = true
-        game.generateInitialState()
+        game.invalidateTimer()
+        self.display(game.currentState)
+//        game.generateInitialState()
         
     }
     
@@ -155,6 +158,7 @@ class GameViewController: UIViewController, GameDelegate {
       
         self.display(game.currentState)
         self.generationLabel.text = "0"
+        self.populationLabel.text = "0"
        
         
         
@@ -175,6 +179,17 @@ class GameViewController: UIViewController, GameDelegate {
 //            }
 //        }
 //    }
+    
+    @IBAction func newGameSizeEnable(_ sender: Any) {
+        
+        game = Game(width: boardWidth, height: boardHeight)
+         guard let game = game else {return}
+         game.generateCellLoops { [weak self] state in
+              self?.display(state)
+         }
+    }
+    
+    
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

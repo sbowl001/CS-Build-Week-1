@@ -23,6 +23,7 @@ class Game {
    var isPaused: Bool = false
    var generationCount: Int = 0
    var timer: Timer?
+    var population: Int = 0
     
    weak var delegate: GameDelegate?
    
@@ -61,7 +62,7 @@ class Game {
     }
     
    func reset() {
-       
+       self.population = 0
        self.generationCount = 0 
        generateDeadCells()
         
@@ -76,36 +77,45 @@ class Game {
     }
   
    func iterate() -> GameState  {
+    var numAlive = 0
     var nextState = currentState
     for i in 0...width - 1 {
-//        if isPaused == true  {
-//            //                self.timer?.invalidate()
-//            break
-//        } else {
-            
+
             for j in 0...height - 1 {
                 let positionInTheArray = j*width + i
                 nextState[positionInTheArray] = Cell(isAlive: state(x: i, y: j))
+                if nextState[positionInTheArray].isAlive {
+                    numAlive += 1
+                }
             }
-//        }
+ 
         
     }
        self.currentState = nextState
-//       delegate?.countGeneration()
+       population = numAlive
        return nextState
    }
    
-   func state(x: Int, y: Int) -> Bool {
-       let numberOfAliveNeighbours = aliveNeighbourCountAt(x: x, y: y)
-       let position = x + y*width
-       
-       let wasPreviouslyAlive = currentState[position].isAlive
-       if wasPreviouslyAlive {
-           return numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3
-       } else {
-           return numberOfAliveNeighbours == 3
-       }
-   }
+    func state(x: Int, y: Int) -> Bool {
+//        var numAlive = 0
+        let numberOfAliveNeighbours = aliveNeighbourCountAt(x: x, y: y)
+        let position = x + y*width
+        
+        let wasPreviouslyAlive = currentState[position].isAlive
+        if wasPreviouslyAlive {
+            //           numAlive += 1
+            //           population = numAlive
+            return numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3
+        }
+        else {
+            return numberOfAliveNeighbours == 3
+        }
+//        } if wasPreviouslyAlive{
+//            numAlive += 1
+//        }
+//        population = numAlive
+        
+    }
    
    func aliveNeighbourCountAt(x: Int, y: Int) -> Int {
        var numberOfAliveNeighbours = 0
@@ -118,9 +128,11 @@ class Game {
                guard index >= 0 && index < width*height else {continue}
                if currentState[index].isAlive {
                    numberOfAliveNeighbours += 1
+                    
                }
            }
        }
+       
        return numberOfAliveNeighbours
    }
    
